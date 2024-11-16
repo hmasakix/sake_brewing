@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本酒仕込み温度管理帳</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <h1>日本酒仕込み温度管理帳</h1>
+    <div id="inputSection">
+      <label for="tankSelect">タンク選択 (No1 - No3):</label>
+      <select id="tankSelect">
+        <option value="No1">No1</option>
+        <option value="No2">No2</option>
+        <option value="No3">No3</option>
+      </select>
+      <br>
+      <label for="temperatureInput">温度:</label>
+      <input type="number" step="0.1" id="temperatureInput" placeholder="温度を入力">
+      <br>
+      <label for="sakeMeterInput">尺:</label>
+      <input type="number" id="sakeMeterInput" placeholder="尺を入力">
+      <br>
+      <button onclick="saveData()">データを保存</button>
+    </div>
+    <div id="dataSection">
+      <h2>温度データ</h2>
+      <ul id="dataList"></ul>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", loadData);
+
+    function saveData() {
+      const tank = document.getElementById("tankSelect").value;
+      const temperature = document.getElementById("temperatureInput").value;
+      const sakeMeter = document.getElementById("sakeMeterInput").value;
+      const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD形式で日付を取得
+
+      if (!temperature || !sakeMeter) {
+        alert("温度と尺を入力してください。");
+        return;
+      }
+
+      let data = JSON.parse(localStorage.getItem("sakeData")) || {};
+      if (!data[tank]) data[tank] = [];
+      data[tank].push({ date, temperature: Number(temperature), sakeMeter: Number(sakeMeter) });
+
+      localStorage.setItem("sakeData", JSON.stringify(data));
+
+      document.getElementById("temperatureInput").value = "";
+      document.getElementById("sakeMeterInput").value = "";
+      loadData();
+    }
+
+    function loadData() {
+      const data = JSON.parse(localStorage.getItem("sakeData")) || {};
+      const dataList = document.getElementById("dataList");
+      dataList.innerHTML = "";
+
+      Object.keys(data).forEach(tank => {
+        const tankData = data[tank];
+        const tankHeader = document.createElement("h3");
+        tankHeader.textContent = `${tank}の温度データ`;
+        dataList.appendChild(tankHeader);
+
+        tankData.forEach(entry => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `日付: ${entry.date}, 温度: ${entry.temperature}℃, 尺: ${entry.sakeMeter}`;
+          dataList.appendChild(listItem);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

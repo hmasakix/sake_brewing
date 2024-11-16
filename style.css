@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px; /* 全体に余白を追加 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 上から配置開始 */
+    min-height: 100vh; /* 必要に応じて高さを拡張 */
+    background-color: #f7f7f7;
+    box-sizing: border-box;
+  }
+  
+  
+  #container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    width: 80%;
+    max-width: 600px; /* 最大幅を指定 */
+    text-align: center;
+    box-sizing: border-box;  
+  }
+  
+  #inputSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #inputSection label,
+  #inputSection select,
+  #inputSection input,
+  #inputSection button {
+  margin-bottom: px; /* 各要素の下に20pxのマージン */
+  width: 100%;
+  max-width: 300px; /* 各要素の最大幅を揃える */
+  box-sizing: border-box;
+}
+
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background: #f0f0f0;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+  }
